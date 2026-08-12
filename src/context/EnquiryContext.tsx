@@ -18,10 +18,12 @@ type EnquiryContextType = {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
   addItem: (item: Omit<EnquiryItem, "id">) => void;
+  updateItem: (id: string, updates: Partial<Omit<EnquiryItem, "id">>) => void;
   removeItem: (code: string) => void;
   removeItemById: (id: string) => void;
   clearAll: () => void;
   hasItem: (code: string) => boolean;
+  getItemCount: (code: string) => number;
 };
 
 const EnquiryContext = createContext<EnquiryContextType | undefined>(undefined);
@@ -56,15 +58,37 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
 
   const addItem = (item: Omit<EnquiryItem, "id">) => {
     setItems((prev) => {
-      const id = `${item.code}-${item.width}-${item.length}-${item.thickness}`;
-      const idx = prev.findIndex((i) => i.id === id);
-      if (idx > -1) {
+      // Check if an item with exact same code, width, length, thickness already exists
+      const existingIdx = prev.findIndex(
+        (i) =>
+          i.code === item.code &&
+          i.width === item.width &&
+          i.length === item.length &&
+          i.thickness === item.thickness
+      );
+      if (existingIdx > -1) {
         const updated = [...prev];
-        updated[idx] = { ...item, id };
+        updated[existingIdx] = {
+          ...updated[existingIdx],
+          quantity: updated[existingIdx].quantity + item.quantity,
+        };
         return updated;
       }
+
+      const id = `${item.code}-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
       return [...prev, { ...item, id }];
     });
+  };
+
+  const updateItem = (id: string, updates: Partial<Omit<EnquiryItem, "id">>) => {
+    setItems((prev) =>
+      prev.map((item) => {
+        if (item.id === id) {
+          return { ...item, ...updates };
+        }
+        return item;
+      })
+    );
   };
 
   const removeItem = (code: string) => {
@@ -83,6 +107,10 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
     return items.some((i) => i.code === code);
   };
 
+  const getItemCount = (code: string) => {
+    return items.filter((i) => i.code === code).length;
+  };
+
   return (
     <EnquiryContext.Provider
       value={{
@@ -90,10 +118,12 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
         isOpen,
         setIsOpen,
         addItem,
+        updateItem,
         removeItem,
         removeItemById,
         clearAll,
         hasItem,
+        getItemCount,
       }}
     >
       {children}

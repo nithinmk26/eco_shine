@@ -36,7 +36,7 @@ export default function CategoryHero({ image, name, indexPage }: CategoryHeroPro
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.15 }}
-          className="text-[11px] uppercase tracking-[0.4em] text-gold"
+          className="text-[11px] uppercase tracking-[0.4em] text-gold-light font-semibold drop-shadow-md"
         >
           Page {indexPage} · Edition 2026
         </motion.p>

@@ -15,9 +15,9 @@ type DoorCardProps = {
 
 export default function DoorCard({ code, image, category, index }: DoorCardProps) {
   const reduce = useReducedMotion();
-  const { items, addItem, hasItem } = useEnquiry();
-  const isAdded = hasItem(code);
-  const existingItem = items.find((i) => i.code === code);
+  const { addItem, getItemCount, setIsOpen } = useEnquiry();
+  const count = getItemCount(code);
+  const isAdded = count > 0;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [width, setWidth] = useState("3.25");
@@ -28,17 +28,10 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
   const handleOpenModal = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (existingItem) {
-      setWidth(existingItem.width);
-      setLength(existingItem.length);
-      setThickness(existingItem.thickness);
-      setQuantity(existingItem.quantity);
-    } else {
-      setWidth("3.25");
-      setLength("7.0");
-      setThickness("30");
-      setQuantity(1);
-    }
+    setWidth("3.25");
+    setLength("7.0");
+    setThickness("30");
+    setQuantity(1);
     setIsModalOpen(true);
   };
 
@@ -55,6 +48,7 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
       quantity,
     });
     setIsModalOpen(false);
+    setIsOpen(true);
   };
 
   return (
@@ -83,19 +77,20 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
           {/* Hover overlay mask */}
           <div className="absolute inset-0 bg-ink/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           
-          {/* Checkmark Badge */}
+          {/* Added Badge */}
           {isAdded && (
-            <div className="absolute top-3 right-3 z-20 flex h-7 w-7 items-center justify-center rounded-full bg-gold text-paper text-sm shadow-lg border border-paper font-bold">
-              ✓
+            <div className="absolute top-3 right-3 z-20 flex items-center gap-1 rounded-full bg-gold px-2.5 py-1 text-paper text-xs shadow-lg border border-paper font-medium">
+              <span>✓ In Cart</span>
+              {count > 1 && <span className="rounded-full bg-paper text-gold px-1.5 py-0.2 text-[10px] font-bold">{count}</span>}
             </div>
           )}
 
-          {/* Action Button */}
+          {/* Action Button - Always Available */}
           <button
             onClick={handleOpenModal}
             className="absolute bottom-4 left-4 right-4 py-2.5 text-center text-[10px] uppercase tracking-[0.2em] opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-md cursor-pointer bg-gold text-paper hover:bg-gold/90 z-30 font-medium"
           >
-            {isAdded ? "Edit Details" : "Add to Enquiry"}
+            Add to Enquiry
           </button>
         </div>
         <figcaption className="flex items-baseline justify-between pt-3">

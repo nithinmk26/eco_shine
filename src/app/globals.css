@@ -6,6 +6,7 @@
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
   --color-clay: var(--clay);
   --color-oxblood: var(--oxblood);
   --color-line: var(--line);
@@ -21,7 +22,8 @@
   --cream: #f3ecdf;
   --ink: #1c1917;
   --ink-soft: #57504a;
-  --gold: #a16207;
+  --gold: #c5a059;
+  --gold-light: #e6cb8b;
   --clay: #b4632a;
   --oxblood: #7c2128;
   --line: #e5ddd0;

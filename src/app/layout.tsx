@@ -6,6 +6,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { EnquiryProvider } from "@/context/EnquiryContext";
 import EnquiryDrawer from "@/components/EnquiryDrawer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const bodoni = localFont({
   variable: "--font-bodoni",
@@ -28,9 +29,9 @@ const jost = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Eco Shine Doors & Windows · Catalogue 2026",
+  title: "Eco Shine Doors & Windows · Add Shine To Your Home",
   description:
-    "Immersive digital catalogue of Eco Shine Doors and Windows, presenting the New Edition 2026: luxury veneer, laminated, membrane, WPC and primer coated doors with product codes.",
+    "Immersive digital catalogue of Eco Shine Doors and Windows - Add Shine To Your Home. Presenting the New Edition 2026: luxury veneer, laminated, membrane, WPC and primer coated doors.",
 };
 
 export default function RootLayout({
@@ -47,6 +48,7 @@ export default function RootLayout({
             <main>{children}</main>
             <Footer />
             <EnquiryDrawer />
+            <WhatsAppButton />
           </SmoothScroll>
         </EnquiryProvider>
       </body>

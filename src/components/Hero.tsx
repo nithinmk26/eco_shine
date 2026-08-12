@@ -24,26 +24,18 @@ export default function Hero({ image }: { image: string }) {
           sizes="100vw"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/35 to-ink/20" />
       </motion.div>
 
       <motion.div
         style={{ y: textY, opacity: textOpacity }}
         className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-24 pt-40 text-paper"
       >
-        <motion.p
-          initial={reduce ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.2 }}
-          className="text-[11px] uppercase tracking-[0.4em] text-paper/80"
-        >
-          Eco Shine Doors &amp; Windows presents
-        </motion.p>
         <motion.h1
           initial={reduce ? false : { opacity: 0, y: 36 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE_OUT, delay: 0.35 }}
-          className="mt-4 font-display text-6xl leading-[0.95] tracking-tight md:text-8xl"
+          className="font-display text-6xl leading-[0.95] tracking-tight md:text-8xl"
         >
           Shine on
           <br />
@@ -61,14 +53,25 @@ export default function Hero({ image }: { image: string }) {
           initial={reduce ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.7 }}
-          className="mt-10 flex flex-wrap items-center gap-6"
+          className="mt-10 flex flex-wrap items-center gap-4 sm:gap-6"
         >
           <Link
             href="/catalogue"
-            className="bg-gold px-8 py-4 text-xs uppercase tracking-[0.3em] text-paper transition-transform duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.98]"
+            className="bg-gold px-8 py-4 text-xs uppercase tracking-[0.3em] text-paper transition-transform duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.98] font-medium shadow-md"
           >
             Browse the catalogue
           </Link>
+
+          <a
+            href="/Eco_Shine_Catalogue_2026.pdf"
+            download="Eco_Shine_Catalogue_2026.pdf"
+            className="flex items-center gap-2.5 border border-paper/40 bg-ink/30 backdrop-blur-sm px-7 py-4 text-xs uppercase tracking-[0.25em] text-paper transition-all duration-200 ease-out hover:border-gold hover:bg-gold hover:text-paper hover:-translate-y-0.5 active:scale-[0.98] font-medium cursor-pointer"
+          >
+            <svg className="h-4 w-4 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            <span>Download Brochure (PDF)</span>
+          </a>
         </motion.div>
       </motion.div>
     </section>

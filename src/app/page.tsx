@@ -92,21 +92,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Index invitation */}
+      {/* Index & Brochure Download invitation */}
       <section className="mx-auto max-w-7xl px-6 py-28 text-center md:py-36">
         <Reveal>
-          <p className="text-[11px] uppercase tracking-[0.4em] text-gold">Catalogue Index</p>
+          <p className="text-[11px] uppercase tracking-[0.4em] text-gold">Catalogue &amp; Brochure</p>
           <h2 className="mx-auto mt-6 max-w-3xl font-display text-4xl leading-tight md:text-6xl">
             {categories.length} families. {totalDoors} doors. Every code, at your fingertips.
           </h2>
         </Reveal>
-        <Reveal delay={0.15}>
+        <Reveal delay={0.15} className="mt-12 flex flex-wrap items-center justify-center gap-5">
           <Link
             href="/catalogue"
-            className="mt-12 inline-block border border-ink px-10 py-5 text-xs uppercase tracking-[0.3em] transition-colors duration-200 hover:bg-ink hover:text-paper"
+            className="border border-ink bg-ink text-paper px-10 py-5 text-xs uppercase tracking-[0.3em] transition-all duration-200 hover:bg-gold hover:border-gold font-medium"
           >
             Open the index
           </Link>
+          <a
+            href="/Eco_Shine_Catalogue_2026.pdf"
+            download="Eco_Shine_Catalogue_2026.pdf"
+            className="flex items-center gap-2.5 border border-ink/40 px-8 py-5 text-xs uppercase tracking-[0.25em] text-ink transition-all duration-200 hover:border-gold hover:bg-gold hover:text-paper font-medium cursor-pointer"
+          >
+            <svg className="h-4 w-4 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            <span>Download PDF Brochure</span>
+          </a>
         </Reveal>
       </section>
     </>
