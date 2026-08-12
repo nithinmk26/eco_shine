@@ -101,10 +101,10 @@ export default function EnquiryDrawer() {
                   <div className="flex flex-col gap-4">
                     {items.map((item) => (
                       <div
-                        key={item.code}
-                        className="flex items-center gap-4 border-b border-line/40 pb-4"
+                        key={item.id}
+                        className="flex items-center gap-4 border-b border-line/40 pb-4 group"
                       >
-                        <div className="relative h-16 w-12 overflow-hidden bg-cream border border-line">
+                        <div className="relative h-16 w-12 flex-shrink-0 overflow-hidden bg-cream border border-line">
                           <Image
                             src={item.image}
                             alt={item.code}
@@ -113,21 +113,25 @@ export default function EnquiryDrawer() {
                             className="object-cover"
                           />
                         </div>
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-0">
                           <p className="text-[10px] uppercase tracking-[0.1em] text-gold font-medium">
                             {item.category}
                           </p>
                           <p className="font-display text-base text-ink mt-0.5">{item.code}</p>
-                          <p className="text-[10px] text-ink-soft mt-1 leading-none font-sans">
-                            Qty: {item.quantity} · Size: {item.width} ft × {item.length} ft · Thick: {item.thickness} mm
+                          <p className="text-[10px] text-ink-soft mt-1 leading-normal font-sans">
+                            Qty: {item.quantity} · Size: {item.width} × {item.length} ft · {item.thickness} mm
                           </p>
                         </div>
                         <button
                           onClick={() => removeItemById(item.id)}
-                          className="text-xs uppercase tracking-[0.15em] text-ink-soft hover:text-oxblood transition-colors p-2 cursor-pointer"
-                          aria-label="Remove item"
+                          className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] text-oxblood/80 hover:text-oxblood hover:bg-oxblood/10 px-2.5 py-1.5 rounded transition-colors cursor-pointer font-medium border border-oxblood/20"
+                          aria-label={`Remove ${item.code} from enquiry`}
+                          title="Remove from Enquiry"
                         >
-                          Remove
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                          <span>Remove</span>
                         </button>
                       </div>
                     ))}

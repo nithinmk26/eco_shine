@@ -15,7 +15,7 @@ type DoorCardProps = {
 
 export default function DoorCard({ code, image, category, index }: DoorCardProps) {
   const reduce = useReducedMotion();
-  const { items, addItem, removeItem, hasItem } = useEnquiry();
+  const { items, addItem, hasItem } = useEnquiry();
   const isAdded = hasItem(code);
   const existingItem = items.find((i) => i.code === code);
 
@@ -40,12 +40,6 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
       setQuantity(1);
     }
     setIsModalOpen(true);
-  };
-
-  const handleRemove = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    removeItem(code);
   };
 
   const handleConfirm = (e: React.MouseEvent) => {
@@ -96,30 +90,13 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
             </div>
           )}
 
-          {/* Action Buttons */}
-          {isAdded ? (
-            <div className="absolute bottom-4 left-4 right-4 flex gap-2 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 z-30">
-              <button
-                onClick={handleOpenModal}
-                className="flex-1 bg-gold text-paper py-2.5 text-center text-[9px] uppercase tracking-[0.1em] shadow-md hover:bg-gold/90 font-medium cursor-pointer"
-              >
-                Edit Details
-              </button>
-              <button
-                onClick={handleRemove}
-                className="bg-oxblood text-paper px-3 py-2.5 text-center text-[9px] uppercase tracking-[0.1em] shadow-md hover:bg-oxblood/90 font-medium cursor-pointer"
-              >
-                Remove
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={handleOpenModal}
-              className="absolute bottom-4 left-4 right-4 py-2.5 text-center text-[10px] uppercase tracking-[0.2em] opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-md cursor-pointer bg-gold text-paper hover:bg-gold/90 z-30"
-            >
-              Add to Enquiry
-            </button>
-          )}
+          {/* Action Button */}
+          <button
+            onClick={handleOpenModal}
+            className="absolute bottom-4 left-4 right-4 py-2.5 text-center text-[10px] uppercase tracking-[0.2em] opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-md cursor-pointer bg-gold text-paper hover:bg-gold/90 z-30 font-medium"
+          >
+            {isAdded ? "Edit Details" : "Add to Enquiry"}
+          </button>
         </div>
         <figcaption className="flex items-baseline justify-between pt-3">
           <span className="font-display text-lg tracking-wide">{code}</span>
