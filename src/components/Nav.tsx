@@ -21,6 +21,21 @@ export default function Nav() {
   const { items, setIsOpen } = useEnquiry();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.includes("#")) {
+      const targetId = href.split("#")[1];
+      if (pathname === "/") {
+        e.preventDefault();
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+          window.history.pushState(null, "", `#${targetId}`);
+        }
+        setMobileMenuOpen(false);
+      }
+    }
+  };
+
   return (
     <motion.header
       style={{ backgroundColor: bg, borderColor: line }}
@@ -51,6 +66,7 @@ export default function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
+                onClick={(e) => handleNavClick(e, l.href)}
                 className={`text-xs uppercase tracking-[0.25em] transition-colors duration-200 hover:text-gold ${
                   pathname === l.href ? "text-gold" : "text-ink"
                 }`}
@@ -102,7 +118,7 @@ export default function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, l.href)}
                 className={`text-xs uppercase tracking-[0.25em] py-1 transition-colors ${
                   pathname === l.href ? "text-gold font-medium" : "text-ink"
                 }`}

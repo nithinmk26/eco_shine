@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import Reveal from "@/components/Reveal";
+import HashScrollHandler from "@/components/HashScrollHandler";
 import { categories, totalDoors } from "@/data/catalogue";
 
 const commitments = [
@@ -16,6 +17,7 @@ export default function Home() {
 
   return (
     <>
+      <HashScrollHandler />
       <Hero image={heroImage} />
 
       {/* Intro / About */}
