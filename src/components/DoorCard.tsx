@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { EASE_OUT, VIEWPORT } from "@/lib/motion";
+import { getAssetUrl } from "@/lib/assets";
 import { useEnquiry } from "@/context/EnquiryContext";
 
 type DoorCardProps = {
@@ -68,7 +69,7 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
           }`}
         >
           <Image
-            src={image}
+            src={getAssetUrl(image)}
             alt={`${category} door, code ${code}`}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"

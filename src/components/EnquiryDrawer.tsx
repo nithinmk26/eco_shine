@@ -4,6 +4,7 @@ import { useEnquiry, EnquiryItem } from "@/context/EnquiryContext";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
+import { getAssetUrl } from "@/lib/assets";
 
 function EnquiryItemCard({ item, onEdit }: { item: EnquiryItem; onEdit: (item: EnquiryItem) => void }) {
   const { updateItem, removeItemById } = useEnquiry();
@@ -13,7 +14,7 @@ function EnquiryItemCard({ item, onEdit }: { item: EnquiryItem; onEdit: (item: E
       {/* Door Thumbnail */}
       <div className="relative h-20 w-14 flex-shrink-0 overflow-hidden bg-cream border border-line rounded-sm">
         <Image
-          src={item.image}
+          src={getAssetUrl(item.image)}
           alt={item.code}
           fill
           sizes="56px"

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { EASE_OUT } from "@/lib/motion";
+import { getAssetUrl } from "@/lib/assets";
 
 type CategoryHeroProps = {
   image?: string;
@@ -21,7 +22,7 @@ export default function CategoryHero({ image, name, indexPage }: CategoryHeroPro
       {image && (
         <motion.div style={{ y: imgY }} className="absolute inset-0">
           <Image
-            src={image}
+            src={getAssetUrl(image)}
             alt={`${name}, lifestyle view`}
             fill
             priority

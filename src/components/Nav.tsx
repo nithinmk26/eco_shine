@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import { getAssetUrl } from "@/lib/assets";
 import { useEnquiry } from "@/context/EnquiryContext";
 
 const links = [
@@ -29,7 +30,7 @@ export default function Nav() {
         {/* Logo & Brand Name */}
         <Link href="/" className="group flex items-center gap-2.5 sm:gap-3 shrink-0 min-w-0">
           <img
-            src="/logo/eco_shine_logo.jpeg"
+            src={getAssetUrl("/logo/eco_shine_logo.jpeg")}
             alt="Eco Shine Logo"
             className="h-8 w-8 sm:h-9 sm:w-9 rounded-full object-cover border border-line shrink-0"
           />

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { EASE_OUT } from "@/lib/motion";
+import { getAssetUrl } from "@/lib/assets";
 
 export default function Hero({ image }: { image: string }) {
   const reduce = useReducedMotion();
@@ -17,7 +18,7 @@ export default function Hero({ image }: { image: string }) {
     <section className="relative flex min-h-svh items-end overflow-hidden bg-cream">
       <motion.div style={{ y: imgY, scale: imgScale }} className="absolute inset-0">
         <Image
-          src={image}
+          src={getAssetUrl(image)}
           alt="Arched hallway with an Eco Shine luxury veneer door"
           fill
           priority
@@ -63,7 +64,7 @@ export default function Hero({ image }: { image: string }) {
           </Link>
 
           <a
-            href="/Eco_Shine_Catalogue_2026.pdf"
+            href={getAssetUrl("/Eco_Shine_Catalogue_2026.pdf")}
             download="Eco_Shine_Catalogue_2026.pdf"
             className="flex items-center gap-2.5 border border-paper/40 bg-ink/30 backdrop-blur-sm px-7 py-4 text-xs uppercase tracking-[0.25em] text-paper transition-all duration-200 ease-out hover:border-gold hover:bg-gold hover:text-paper hover:-translate-y-0.5 active:scale-[0.98] font-medium cursor-pointer"
           >

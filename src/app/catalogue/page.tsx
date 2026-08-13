@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import { getAssetUrl } from "@/lib/assets";
 import { categories, totalDoors } from "@/data/catalogue";
 
 export const metadata: Metadata = {
@@ -34,7 +35,7 @@ export default function CatalogueIndex() {
               <span className="relative hidden h-20 w-14 overflow-hidden bg-cream md:block">
                 {c.doors[0] && (
                   <Image
-                    src={c.doors[0].image}
+                    src={getAssetUrl(c.doors[0].image)}
                     alt=""
                     fill
                     sizes="56px"
