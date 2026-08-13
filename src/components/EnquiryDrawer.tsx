@@ -252,63 +252,88 @@ export default function EnquiryDrawer() {
         )}
       </AnimatePresence>
 
-      {/* User Details Modal Popup before WhatsApp redirect */}
+      {/* Full-Page / Whole Page Customer Details Modal Popup */}
       {isUserFormOpen && (
         <div
           onClick={() => setIsUserFormOpen(false)}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/60 px-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/75 px-4 backdrop-blur-md"
         >
           <form
             onSubmit={handleSubmitDetails}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-sm bg-paper p-6 border border-line shadow-2xl rounded-md text-ink"
+            className="w-full max-w-lg bg-paper p-6 sm:p-8 border border-line shadow-2xl rounded-lg text-ink max-h-[90vh] overflow-y-auto"
           >
-            <h4 className="font-display text-2xl border-b border-line pb-3">Your Details</h4>
-            <p className="text-xs text-ink-soft mt-2 leading-relaxed">
-              Please enter your details before sending the enquiry to WhatsApp.
-            </p>
+            <div className="flex items-center justify-between border-b border-line pb-4">
+              <div>
+                <h4 className="font-display text-2xl">Complete Your Enquiry</h4>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-gold mt-1 font-medium">
+                  {items.length} {items.length === 1 ? "door selected" : "doors selected"}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsUserFormOpen(false)}
+                className="text-2xl text-ink-soft hover:text-ink transition-colors cursor-pointer"
+                aria-label="Close"
+              >
+                &times;
+              </button>
+            </div>
 
-            <div className="mt-5 flex flex-col gap-4">
+            {/* Selected items overview */}
+            <div className="mt-4 bg-cream/70 p-3.5 rounded border border-line/80">
+              <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-ink-soft mb-2">Enquiry Summary</p>
+              <div className="flex flex-col gap-1.5 max-h-32 overflow-y-auto text-xs text-ink pr-1">
+                {items.map((it, idx) => (
+                  <div key={it.id} className="flex justify-between items-center border-b border-line/40 pb-1">
+                    <span className="truncate font-medium">{idx + 1}. {it.code} ({it.category})</span>
+                    <span className="text-[11px] text-ink-soft shrink-0 ml-2">Qty {it.quantity} · {it.width}×{it.length}ft</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-col gap-4">
               {/* Name Input */}
               <div>
                 <label className="text-[10px] uppercase tracking-[0.2em] text-ink-soft block mb-1.5 font-medium">
-                  Name <span className="text-oxblood">*</span>
+                  Full Name <span className="text-oxblood">*</span>
                 </label>
                 <input
                   type="text"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
-                  placeholder="e.g. John Doe"
+                  placeholder="e.g. Rahul Sharma"
                   required
-                  className="w-full border border-line bg-paper px-3 py-2 text-sm outline-none focus:border-gold"
+                  className="w-full border border-line bg-paper px-3.5 py-2.5 text-sm outline-none focus:border-gold rounded"
                 />
               </div>
 
               {/* Email Input */}
               <div>
                 <label className="text-[10px] uppercase tracking-[0.2em] text-ink-soft block mb-1.5 font-medium">
-                  Email (Optional)
+                  Email Address (Optional)
                 </label>
                 <input
                   type="email"
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
-                  placeholder="e.g. john@example.com"
-                  className="w-full border border-line bg-paper px-3 py-2 text-sm outline-none focus:border-gold"
+                  placeholder="e.g. rahul@example.com"
+                  className="w-full border border-line bg-paper px-3.5 py-2.5 text-sm outline-none focus:border-gold rounded"
                 />
               </div>
 
               {/* Location Input */}
               <div>
                 <label className="text-[10px] uppercase tracking-[0.2em] text-ink-soft block mb-1.5 font-medium">
-                  Location (Optional)
+                  City / Location (Optional)
                 </label>
                 <input
                   type="text"
                   value={userLocation}
                   onChange={(e) => setUserLocation(e.target.value)}
-                  placeholder="e.g. Chikkamagaluru"
-                  className="w-full border border-line bg-paper px-3 py-2 text-sm outline-none focus:border-gold"
+                  placeholder="e.g. Bangalore / Chikkamagaluru"
+                  className="w-full border border-line bg-paper px-3.5 py-2.5 text-sm outline-none focus:border-gold rounded"
                 />
               </div>
             </div>
@@ -317,15 +342,15 @@ export default function EnquiryDrawer() {
               <button
                 type="button"
                 onClick={() => setIsUserFormOpen(false)}
-                className="flex-1 border border-ink/20 py-3 text-center text-[10px] uppercase tracking-[0.2em] hover:bg-ink/5 cursor-pointer"
+                className="flex-1 border border-ink/20 py-3.5 text-center text-[10px] uppercase tracking-[0.2em] hover:bg-ink/5 cursor-pointer rounded"
               >
-                Cancel
+                Back to List
               </button>
               <button
                 type="submit"
-                className="flex-1 bg-gold text-paper py-3 text-center text-[10px] uppercase tracking-[0.2em] font-medium hover:bg-gold/90 cursor-pointer"
+                className="flex-1 bg-gold text-paper py-3.5 text-center text-[10px] uppercase tracking-[0.2em] font-medium hover:bg-gold/90 cursor-pointer rounded shadow-md"
               >
-                Submit &amp; Send
+                Send to WhatsApp &rarr;
               </button>
             </div>
           </form>
