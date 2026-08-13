@@ -40,6 +40,17 @@ export default function Footer() {
                 ecoshinedoorsandwindows@gmail.com
               </a>
             </p>
+            <p className="text-paper/80">
+              <span className="font-medium text-paper">Instagram:</span>{" "}
+              <a
+                href="https://www.instagram.com/ecoshinedoorsand?igsh=MWMwb2Jubjl3a291dA=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gold transition-colors hover:underline"
+              >
+                @ecoshinedoorsand
+              </a>
+            </p>
 
             <div className="mt-2 flex flex-col gap-1 text-xs text-paper/80 leading-relaxed">
               <p>
