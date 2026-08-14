@@ -22,16 +22,18 @@ export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    setMobileMenuOpen(false);
     if (href.includes("#")) {
       const targetId = href.split("#")[1];
       if (pathname === "/") {
         e.preventDefault();
-        const element = document.getElementById(targetId);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-          window.history.pushState(null, "", `#${targetId}`);
-        }
-        setMobileMenuOpen(false);
+        setTimeout(() => {
+          const element = document.getElementById(targetId);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+            window.history.pushState(null, "", `#${targetId}`);
+          }
+        }, 150);
       }
     }
   };

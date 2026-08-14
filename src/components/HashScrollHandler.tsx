@@ -8,12 +8,14 @@ export default function HashScrollHandler() {
       const hash = window.location.hash;
       if (hash) {
         const id = hash.replace("#", "");
-        const element = document.getElementById(id);
-        if (element) {
-          setTimeout(() => {
-            element.scrollIntoView({ behavior: "smooth" });
-          }, 200);
-        }
+        const scrollToElement = () => {
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        };
+        scrollToElement();
+        setTimeout(scrollToElement, 250);
       }
     };
 
