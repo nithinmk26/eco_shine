@@ -85,7 +85,7 @@ export default function AboutPage() {
               At Eco Shine Doors &amp; Windows, we believe that an entrance is more than just a barrier — it is the defining statement of your home&apos;s character.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-ink-soft">
-              Our New Edition 2026 catalogue features {totalDoors} distinct door models across {categories.length} specialized door families, ranging from high-end Luxury Veneer to 3D WPC and HMR Routing doors.
+              Our New Edition 2026 catalogue features {totalDoors} distinct door models across {categories.length} specialized door collections, ranging from high-end Luxury Veneer to 3D WPC and HMR Routing doors.
             </p>
           </Reveal>
 
@@ -168,7 +168,7 @@ export default function AboutPage() {
             Discover the full Eco Shine collection
           </h2>
           <p className="mt-4 text-sm text-ink-soft max-w-md mx-auto">
-            Browse all {categories.length} door families and request customized inquiries directly with our team.
+            Browse all {categories.length} door collections and request customized inquiries directly with our team.
           </p>
         </Reveal>
         <Reveal delay={0.15} className="mt-10 flex flex-wrap items-center justify-center gap-5">

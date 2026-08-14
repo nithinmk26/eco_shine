@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 
 export default function WhatsAppButton() {
-  const phoneNumber = "919108840102"; // MD Deepak
+  const phoneNumber = "9187232751"; // Eco Shine Enquiry
   const whatsappMessage = `Hello Eco Shine, I would like to inquire about your doors and windows products. Please share more details and catalogue information. Thanks!`;
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 

@@ -28,7 +28,7 @@ export default function Footer() {
           <address className="mt-4 text-sm not-italic leading-relaxed text-paper/80">
             <span className="font-semibold text-paper">Eco Shine Doors &amp; Windows</span>
             <br />
-            No. 18741 Vishala Complex, Opp to IDSC college,
+            No. 18741 Vishala Complex, Opp to IDSG college,
             <br />
             KM Road, Jyoti Nagar, Chikkamagaluru - 577102
           </address>
@@ -58,14 +58,8 @@ export default function Footer() {
                 <a href="tel:9108840102" className="text-gold hover:underline">9108840102</a>
               </p>
               <p>
-                <span className="font-medium text-paper">BDM (Prakash):</span>{" "}
-                <a href="tel:9187232755" className="text-gold hover:underline">9187232755</a>
-              </p>
-              <p>
-                <span className="font-medium text-paper">Office:</span>{" "}
-                <a href="tel:9187232751" className="text-gold hover:underline">9187232751</a>,{" "}
-                <a href="tel:9187232752" className="text-gold hover:underline">9187232752</a>,{" "}
-                <a href="tel:9187232753" className="text-gold hover:underline">9187232753</a>
+                <span className="font-medium text-paper">Office / Enquiry:</span>{" "}
+                <a href="tel:9187232751" className="text-gold hover:underline">9187232751</a>
               </p>
             </div>
 

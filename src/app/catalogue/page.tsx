@@ -8,7 +8,7 @@ import { categories, totalDoors } from "@/data/catalogue";
 export const metadata: Metadata = {
   title: "Catalogue Index · Eco Shine Doors & Windows",
   description:
-    "The Eco Shine New Edition 2026 index: 25 door families from luxury veneer to WPC membrane, every door with its product code.",
+    "The Eco Shine New Edition 2026 index: 25 door collections from luxury veneer to WPC membrane, every door with its product code.",
 };
 
 export default function CatalogueIndex() {
@@ -18,7 +18,7 @@ export default function CatalogueIndex() {
         <p className="text-[11px] uppercase tracking-[0.4em] text-gold">Eco Shine · New Edition 2026</p>
         <h1 className="mt-4 font-display text-6xl tracking-tight md:text-8xl">Index</h1>
         <p className="mt-6 max-w-lg text-sm leading-relaxed text-ink-soft">
-          {categories.length} families, {totalDoors} doors. Choose a collection to see every door with its code.
+          {categories.length} collections, {totalDoors} doors. Choose a collection to see every door with its code.
         </p>
       </Reveal>
 

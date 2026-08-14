@@ -37,7 +37,7 @@ export default function Home() {
             <Reveal delay={0.15}>
               <p className="mt-8 max-w-xl text-sm leading-relaxed text-ink-soft">
                 Eco Shine Doors and Windows presents the collection: {totalDoors} doors across{" "}
-                {categories.length} families: luxury veneer, laminated, membrane, WPC and primer coated, created
+                {categories.length} collections: luxury veneer, laminated, membrane, WPC and primer coated, created
                 keeping your requirements at the core.
               </p>
             </Reveal>
@@ -122,7 +122,7 @@ export default function Home() {
         <Reveal>
           <p className="text-[11px] uppercase tracking-[0.4em] text-gold">Catalogue &amp; Brochure</p>
           <h2 className="mx-auto mt-6 max-w-3xl font-display text-4xl leading-tight md:text-6xl">
-            {categories.length} families. {totalDoors} doors. Every code, at your fingertips.
+            {categories.length} collections. {totalDoors} doors. Every code, at your fingertips.
           </h2>
         </Reveal>
         <Reveal delay={0.15} className="mt-12 flex flex-wrap items-center justify-center gap-5">

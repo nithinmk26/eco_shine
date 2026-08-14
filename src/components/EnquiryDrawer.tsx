@@ -5,16 +5,19 @@ import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
 import { getAssetUrl } from "@/lib/assets";
+import { validateDimensions } from "@/lib/validation";
 
 function EnquiryItemCard({ item }: { item: EnquiryItem }) {
   const { updateItem, removeItemById } = useEnquiry();
   const [isEditing, setIsEditing] = useState(false);
 
+  const validation = validateDimensions(item.width, item.length, item.thickness);
+
   return (
     <div className="flex flex-col border-b border-line/60 pb-4 pt-3 group">
       <div className="flex items-start gap-4">
-        {/* Door Thumbnail */}
-        <div className="relative h-20 w-14 flex-shrink-0 overflow-hidden bg-cream border border-line rounded-sm">
+        {/* Door Image Thumbnail */}
+        <div className="relative h-20 w-14 flex-shrink-0 overflow-hidden bg-cream border border-line rounded">
           <Image
             src={getAssetUrl(item.image)}
             alt={item.code}
@@ -24,35 +27,43 @@ function EnquiryItemCard({ item }: { item: EnquiryItem }) {
           />
         </div>
 
-        {/* Info */}
-        <div className="flex-1 min-w-0">
+        {/* Item Info & Quick Details */}
+        <div className="flex flex-col flex-grow min-w-0">
           <div className="flex items-center justify-between gap-2">
-            <span className="text-[10px] uppercase tracking-[0.15em] text-gold font-medium truncate">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-gold font-medium truncate">
               {item.category}
             </span>
             <button
               onClick={() => removeItemById(item.id)}
-              className="text-ink-soft hover:text-oxblood transition-colors p-1 cursor-pointer shrink-0"
-              title="Remove item"
-              aria-label={`Remove ${item.code}`}
+              className="text-ink-soft hover:text-oxblood transition-colors cursor-pointer text-xs font-semibold p-1 -mr-1"
+              aria-label="Remove item"
+              title="Remove door from enquiry"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-              </svg>
+              &times; Remove
             </button>
           </div>
 
-          <p className="font-display text-lg text-ink leading-tight">{item.code}</p>
+          <h4 className="font-display text-lg tracking-wide text-ink truncate">{item.code}</h4>
 
-          {/* Specs Summary */}
+          {/* Current Specs Summary */}
           {!isEditing && (
-            <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-ink-soft">
+            <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs text-ink-soft">
               <span>Qty: {item.quantity}</span>
               <span>·</span>
-              <span>{item.width} × {item.length} ft</span>
+              <span className={!validation.isWidthValid || !validation.isLengthValid ? "text-oxblood font-semibold" : ""}>
+                {item.width} × {item.length} ft
+              </span>
               <span>·</span>
-              <span>{item.thickness} mm</span>
+              <span className={!validation.isThicknessValid ? "text-oxblood font-semibold" : ""}>
+                {item.thickness} mm
+              </span>
             </div>
+          )}
+
+          {!validation.isValid && !isEditing && (
+            <span className="text-[10px] text-oxblood font-semibold mt-1 block">
+              ⚠️ Size Not Available! Click Edit Specs to adjust.
+            </span>
           )}
 
           {/* Quantity Controls & Edit Toggle Button */}
@@ -79,9 +90,12 @@ function EnquiryItemCard({ item }: { item: EnquiryItem }) {
 
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="flex items-center gap-1 text-[10px] uppercase tracking-[0.15em] text-gold hover:text-gold/80 font-medium cursor-pointer border border-gold/40 hover:border-gold px-2.5 py-1 rounded transition-colors bg-gold/5"
+              className={`flex items-center gap-1 text-[10px] uppercase tracking-[0.15em] font-medium cursor-pointer border px-2.5 py-1 rounded transition-colors ${!validation.isValid
+                  ? "border-oxblood text-oxblood bg-oxblood/10 hover:bg-oxblood/20"
+                  : "border-gold/40 text-gold hover:text-gold/80 hover:border-gold bg-gold/5"
+                }`}
             >
-              <span>{isEditing ? "Done" : "Edit Specs"}</span>
+              <span>{isEditing ? "Done" : !validation.isValid ? "Fix Specs" : "Edit Specs"}</span>
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d={isEditing ? "M5 13l4 4L19 7" : "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"} />
               </svg>
@@ -98,31 +112,52 @@ function EnquiryItemCard({ item }: { item: EnquiryItem }) {
             <div>
               <label className="text-[9px] uppercase tracking-[0.15em] text-ink-soft block mb-1">Width (ft)</label>
               <input
-                type="text"
+                type="number"
+                step="0.05"
                 value={item.width}
                 onChange={(e) => updateItem(item.id, { width: e.target.value })}
-                className="w-full border border-line bg-paper px-2 py-1 text-xs text-ink rounded outline-none focus:border-gold"
+                className={`w-full border px-2 py-1 text-xs text-ink rounded outline-none ${!validation.isWidthValid ? "border-oxblood bg-oxblood/5 text-oxblood" : "border-line bg-paper focus:border-gold"
+                  }`}
               />
+              {!validation.isWidthValid && (
+                <span className="text-[8px] text-oxblood font-semibold block mt-0.5">2.25-4.5ft</span>
+              )}
             </div>
             <div>
               <label className="text-[9px] uppercase tracking-[0.15em] text-ink-soft block mb-1">Length (ft)</label>
               <input
-                type="text"
+                type="number"
+                step="0.05"
                 value={item.length}
                 onChange={(e) => updateItem(item.id, { length: e.target.value })}
-                className="w-full border border-line bg-paper px-2 py-1 text-xs text-ink rounded outline-none focus:border-gold"
+                className={`w-full border px-2 py-1 text-xs text-ink rounded outline-none ${!validation.isLengthValid ? "border-oxblood bg-oxblood/5 text-oxblood" : "border-line bg-paper focus:border-gold"
+                  }`}
               />
+              {!validation.isLengthValid && (
+                <span className="text-[8px] text-oxblood font-semibold block mt-0.5">6.25-10ft</span>
+              )}
             </div>
             <div>
               <label className="text-[9px] uppercase tracking-[0.15em] text-ink-soft block mb-1">Thickness (mm)</label>
               <input
-                type="text"
+                type="number"
+                step="1"
                 value={item.thickness}
                 onChange={(e) => updateItem(item.id, { thickness: e.target.value })}
-                className="w-full border border-line bg-paper px-2 py-1 text-xs text-ink rounded outline-none focus:border-gold"
+                className={`w-full border px-2 py-1 text-xs text-ink rounded outline-none ${!validation.isThicknessValid ? "border-oxblood bg-oxblood/5 text-oxblood" : "border-line bg-paper focus:border-gold"
+                  }`}
               />
+              {!validation.isThicknessValid && (
+                <span className="text-[8px] text-oxblood font-semibold block mt-0.5">25-60mm</span>
+              )}
             </div>
           </div>
+
+          {!validation.isValid && (
+            <div className="p-2 bg-oxblood/10 border border-oxblood/30 rounded text-oxblood text-[10px] font-medium">
+              ⚠️ {validation.errorMessage}
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -138,8 +173,13 @@ export default function EnquiryDrawer() {
   const [userEmail, setUserEmail] = useState("");
   const [userLocation, setUserLocation] = useState("");
 
+  const hasInvalidItem = items.some(
+    (item) => !validateDimensions(item.width, item.length, item.thickness).isValid
+  );
+
   const handleWhatsAppClick = () => {
     if (items.length === 0) return;
+    if (hasInvalidItem) return;
     setIsUserFormOpen(true);
   };
 
@@ -147,7 +187,7 @@ export default function EnquiryDrawer() {
     e.preventDefault();
     if (!userName.trim()) return;
 
-    const phoneNumber = "919108840102"; // Eco Shine phone with 91 country code
+    const phoneNumber = "9187232751"; // Eco Shine WhatsApp Enquiry number
 
     // User details text
     let userDetailsText = `Name: ${userName.trim()}\n`;
@@ -233,11 +273,20 @@ export default function EnquiryDrawer() {
               {/* Actions Footer */}
               {items.length > 0 && (
                 <div className="border-t border-line bg-cream px-6 py-6 flex flex-col gap-3">
+                  {hasInvalidItem && (
+                    <div className="p-3 bg-oxblood/10 border border-oxblood/30 rounded text-oxblood text-xs font-semibold">
+                      ⚠️ Some items have dimensions that are Not Available. Please fix specs above before sending.
+                    </div>
+                  )}
                   <button
                     onClick={handleWhatsAppClick}
-                    className="w-full bg-gold text-paper py-4 text-center text-xs uppercase tracking-[0.25em] font-medium transition-transform duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.98] shadow-md cursor-pointer"
+                    disabled={hasInvalidItem}
+                    className={`w-full py-4 text-center text-xs uppercase tracking-[0.25em] font-medium transition-all shadow-md cursor-pointer ${hasInvalidItem
+                        ? "bg-oxblood/80 text-paper opacity-60 cursor-not-allowed"
+                        : "bg-gold text-paper hover:bg-gold/90"
+                      }`}
                   >
-                    Send Enquiry via WhatsApp
+                    {hasInvalidItem ? "Fix Invalid Sizes Above" : "Send Enquiry via WhatsApp"}
                   </button>
                   <button
                     onClick={clearAll}

@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { EASE_OUT, VIEWPORT } from "@/lib/motion";
 import { getAssetUrl } from "@/lib/assets";
 import { useEnquiry } from "@/context/EnquiryContext";
+import { validateDimensions } from "@/lib/validation";
 
 type DoorCardProps = {
   code: string;
@@ -25,6 +26,9 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
   const [length, setLength] = useState("7.0");
   const [thickness, setThickness] = useState("30");
   const [quantity, setQuantity] = useState(1);
+  const [hasSubmittedAttempt, setHasSubmittedAttempt] = useState(false);
+
+  const validation = validateDimensions(width, length, thickness);
 
   const handleOpenSpecsModal = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -33,12 +37,19 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
     setLength("7.0");
     setThickness("30");
     setQuantity(1);
+    setHasSubmittedAttempt(false);
     setIsSpecsModalOpen(true);
   };
 
   const handleConfirmSpecs = (e: React.FormEvent | React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    setHasSubmittedAttempt(true);
+
+    if (!validation.isValid) {
+      return;
+    }
+
     addItem({
       code,
       image,
@@ -63,9 +74,8 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
         onClick={handleOpenSpecsModal}
       >
         <div
-          className={`relative aspect-[3/4] overflow-hidden bg-cream transition-all duration-300 ${
-            isAdded ? "ring-4 ring-gold ring-offset-2 ring-offset-paper" : ""
-          }`}
+          className={`relative aspect-[3/4] overflow-hidden bg-cream transition-all duration-300 ${isAdded ? "ring-4 ring-gold ring-offset-2 ring-offset-paper" : ""
+            }`}
         >
           <Image
             src={getAssetUrl(image)}
@@ -76,7 +86,7 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
           />
           {/* Hover overlay mask */}
           <div className="absolute inset-0 bg-ink/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-          
+
           {/* Added Badge */}
           {isAdded && (
             <div className="absolute top-3 right-3 z-20 flex items-center gap-1 rounded-full bg-gold px-2.5 py-1 text-paper text-xs shadow-lg border border-paper font-medium">
@@ -156,7 +166,7 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
               <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-gold mb-3">
                 CUSTOMIZE DIMENSIONS &amp; THICKNESS
               </p>
-              
+
               <div className="grid grid-cols-3 gap-3">
                 {/* Width */}
                 <div>
@@ -164,12 +174,21 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
                     WIDTH (FT)
                   </label>
                   <input
-                    type="text"
+                    type="number"
+                    step="0.05"
                     value={width}
                     onChange={(e) => setWidth(e.target.value)}
                     placeholder="3.25"
-                    className="w-full border border-line bg-paper px-3 py-2 text-sm text-ink rounded outline-none focus:border-gold font-medium"
+                    className={`w-full border px-3 py-2 text-sm text-ink rounded outline-none font-medium transition-colors ${!validation.isWidthValid
+                        ? "border-oxblood bg-oxblood/5 text-oxblood focus:border-oxblood"
+                        : "border-line bg-paper focus:border-gold"
+                      }`}
                   />
+                  {!validation.isWidthValid && (
+                    <span className="text-[9px] text-oxblood font-semibold block mt-1 leading-tight">
+                      Not available (2.25 - 4.5 ft)
+                    </span>
+                  )}
                 </div>
 
                 {/* Length */}
@@ -178,12 +197,21 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
                     LENGTH (FT)
                   </label>
                   <input
-                    type="text"
+                    type="number"
+                    step="0.05"
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
                     placeholder="7.0"
-                    className="w-full border border-line bg-paper px-3 py-2 text-sm text-ink rounded outline-none focus:border-gold font-medium"
+                    className={`w-full border px-3 py-2 text-sm text-ink rounded outline-none font-medium transition-colors ${!validation.isLengthValid
+                        ? "border-oxblood bg-oxblood/5 text-oxblood focus:border-oxblood"
+                        : "border-line bg-paper focus:border-gold"
+                      }`}
                   />
+                  {!validation.isLengthValid && (
+                    <span className="text-[9px] text-oxblood font-semibold block mt-1 leading-tight">
+                      Not available (6.25 - 10 ft)
+                    </span>
+                  )}
                 </div>
 
                 {/* Thickness */}
@@ -192,14 +220,40 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
                     THICKNESS (MM)
                   </label>
                   <input
-                    type="text"
+                    type="number"
+                    step="1"
                     value={thickness}
                     onChange={(e) => setThickness(e.target.value)}
                     placeholder="30"
-                    className="w-full border border-line bg-paper px-3 py-2 text-sm text-ink rounded outline-none focus:border-gold font-medium"
+                    className={`w-full border px-3 py-2 text-sm text-ink rounded outline-none font-medium transition-colors ${!validation.isThicknessValid
+                        ? "border-oxblood bg-oxblood/5 text-oxblood focus:border-oxblood"
+                        : "border-line bg-paper focus:border-gold"
+                      }`}
                   />
+                  {!validation.isThicknessValid && (
+                    <span className="text-[9px] text-oxblood font-semibold block mt-1 leading-tight">
+                      Not available (25 - 60 mm)
+                    </span>
+                  )}
                 </div>
               </div>
+
+              {/* Red Error Banner Notification if size is out of bounds */}
+              {(!validation.isValid || hasSubmittedAttempt) && !validation.isValid && (
+                <div className="mt-3.5 p-3 bg-oxblood/10 border border-oxblood/40 rounded text-oxblood text-xs flex items-start gap-2">
+                  <svg className="w-4 h-4 text-oxblood shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                  <div>
+                    <span className="font-bold block uppercase tracking-wider text-[10px]">
+                      SIZE NOT AVAILABLE
+                    </span>
+                    <span className="text-[11px] leading-snug block mt-0.5">
+                      {validation.errorMessage}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Actions: Cancel & Done Button */}
@@ -214,12 +268,18 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
               <button
                 type="button"
                 onClick={handleConfirmSpecs}
-                className="flex items-center gap-1.5 px-6 py-2.5 bg-gold text-paper rounded text-[11px] uppercase tracking-[0.2em] font-semibold transition-all hover:bg-gold/90 shadow-md cursor-pointer border border-gold"
+                disabled={!validation.isValid}
+                className={`flex items-center gap-1.5 px-6 py-2.5 rounded text-[11px] uppercase tracking-[0.2em] font-semibold transition-all shadow-md cursor-pointer border ${validation.isValid
+                    ? "bg-gold text-paper border-gold hover:bg-gold/90"
+                    : "bg-oxblood/80 text-paper border-oxblood opacity-60 cursor-not-allowed"
+                  }`}
               >
-                <span>DONE</span>
-                <svg className="w-3.5 h-3.5 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
+                <span>{validation.isValid ? "DONE" : "NOT AVAILABLE"}</span>
+                {validation.isValid && (
+                  <svg className="w-3.5 h-3.5 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
               </button>
             </div>
           </div>
