@@ -2,6 +2,7 @@ import Link from "next/link";
 import Hero from "@/components/Hero";
 import Reveal from "@/components/Reveal";
 import HashScrollHandler from "@/components/HashScrollHandler";
+import { getAssetUrl } from "@/lib/assets";
 import { categories, totalDoors } from "@/data/catalogue";
 
 const commitments = [
@@ -86,7 +87,29 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
-          <Reveal delay={0.2}>
+        </div>
+      </section>
+
+      {/* Applications & Technical Notice */}
+      <section className="border-t border-line bg-paper py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-6">
+          <Reveal>
+            <p className="text-[11px] uppercase tracking-[0.4em] text-gold font-semibold">Technical Standards</p>
+            <h3 className="mt-3 font-display text-3xl md:text-4xl">Specifications &amp; Customization</h3>
+            <div className="mt-8 grid gap-6 sm:grid-cols-3">
+              <div className="bg-cream/60 p-5 rounded border border-line">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-gold font-semibold">Standard Sizes</p>
+                <p className="mt-2 text-sm text-ink font-medium">7′ × 3.25′ &amp; 8′ × 4′</p>
+              </div>
+              <div className="bg-cream/60 p-5 rounded border border-line">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-gold font-semibold">Thickness</p>
+                <p className="mt-2 text-sm text-ink font-medium">30 mm · 35 mm · 40 mm</p>
+              </div>
+              <div className="bg-cream/60 p-5 rounded border border-line">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-gold font-semibold">Custom Height / Width</p>
+                <p className="mt-2 text-sm text-ink font-medium">84″, 81″, 78″ / 27″, 30″, 32″, 36″, 38″</p>
+              </div>
+            </div>
             <p className="mt-12 text-[11px] uppercase tracking-[0.25em] text-ink-soft">
               Applications: Villas · Bungalows · Hotels · Offices · Apartments · Hospitals · Malls
             </p>
@@ -110,8 +133,10 @@ export default function Home() {
             Open the index
           </Link>
           <a
-            href="/Eco_Shine_Catalogue_2026.pdf"
+            href={getAssetUrl("/Eco_Shine_Catalogue_2026.pdf")}
             download="Eco_Shine_Catalogue_2026.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2.5 border border-ink/40 px-8 py-5 text-xs uppercase tracking-[0.25em] text-ink transition-all duration-200 hover:border-gold hover:bg-gold hover:text-paper font-medium cursor-pointer"
           >
             <svg className="h-4 w-4 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2">

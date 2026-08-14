@@ -66,6 +66,8 @@ export default function Hero({ image }: { image: string }) {
           <a
             href={getAssetUrl("/Eco_Shine_Catalogue_2026.pdf")}
             download="Eco_Shine_Catalogue_2026.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2.5 border border-paper/40 bg-ink/30 backdrop-blur-sm px-7 py-4 text-xs uppercase tracking-[0.25em] text-paper transition-all duration-200 ease-out hover:border-gold hover:bg-gold hover:text-paper hover:-translate-y-0.5 active:scale-[0.98] font-medium cursor-pointer"
           >
             <svg className="h-4 w-4 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2">

@@ -181,6 +181,8 @@ export default function AboutPage() {
           <a
             href={getAssetUrl("/Eco_Shine_Catalogue_2026.pdf")}
             download="Eco_Shine_Catalogue_2026.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 border border-ink/40 px-7 py-4 text-xs uppercase tracking-[0.25em] text-ink transition-all hover:border-gold hover:bg-gold hover:text-paper font-medium rounded-sm cursor-pointer"
           >
             <svg className="h-4 w-4 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2">
