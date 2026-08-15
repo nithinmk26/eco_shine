@@ -51,12 +51,16 @@ export default function Nav() {
             alt="Eco Shine Logo"
             className="h-8 w-8 sm:h-9 sm:w-9 rounded-full object-cover border border-line shrink-0"
           />
-          <div className="flex flex-col min-w-0">
-            <span className="font-display text-base sm:text-lg tracking-wide leading-none truncate text-ink">
-              Eco Shine
+          <div className="flex flex-col min-w-0 leading-none">
+            <span className="font-sans font-black tracking-wider text-base sm:text-lg uppercase leading-none">
+              <span className="text-[#0B2545]">ECO</span>{" "}
+              <span className="text-[#E65100]">SHINE</span>
             </span>
-            <span className="mt-0.5 text-[8px] sm:text-[9px] uppercase tracking-[0.18em] sm:tracking-[0.2em] text-gold leading-none truncate font-medium">
-              Add Shine To Your Home
+            <span className="mt-1 text-[7.5px] sm:text-[8.5px] font-bold uppercase tracking-[0.15em] text-[#0B2545] leading-none">
+              DOORS AND WINDOWS
+            </span>
+            <span className="mt-0.5 text-[7px] sm:text-[8px] font-bold uppercase tracking-[0.14em] text-[#E65100] leading-none">
+              ADD SHINE TO YOUR HOME
             </span>
           </div>
         </Link>

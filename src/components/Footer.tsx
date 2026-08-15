@@ -5,9 +5,15 @@ export default function Footer() {
     <footer id="contact" className="border-t border-line bg-ink text-paper">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-12">
         <div className="lg:col-span-4">
-          <p className="font-display text-3xl">Eco Shine</p>
-          <p className="mt-1 text-[11px] uppercase tracking-[0.3em] text-gold font-medium">
-            Add Shine To Your Home
+          <p className="font-sans font-black tracking-wider text-3xl uppercase leading-none">
+            <span className="text-paper">ECO</span>{" "}
+            <span className="text-[#FF5500]">SHINE</span>
+          </p>
+          <p className="mt-2 text-xs font-bold uppercase tracking-[0.2em] text-paper/80">
+            DOORS AND WINDOWS
+          </p>
+          <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#FF5500]">
+            ADD SHINE TO YOUR HOME
           </p>
           <p className="mt-6 max-w-xs text-sm leading-relaxed text-paper/70">
             Presenting the Eco Shine catalogue, New Edition 2026. A door that speaks style, and lives strength.
