@@ -15,7 +15,7 @@ export default function CatalogueIndex() {
   return (
     <div className="mx-auto max-w-7xl px-6 pb-28 pt-36">
       <Reveal>
-        <p className="text-[11px] uppercase tracking-[0.4em] text-gold">Eco Shine · New Edition 2026</p>
+        <p className="text-[11px] uppercase tracking-[0.4em] text-[#E65100] font-bold">Eco Shine · New Edition 2026</p>
         <h1 className="mt-4 font-display text-6xl tracking-tight md:text-8xl">Index</h1>
         <p className="mt-6 max-w-lg text-sm leading-relaxed text-ink-soft">
           {categories.length} collections, {totalDoors} doors. Choose a collection to see every door with its code.

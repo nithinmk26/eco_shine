@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
@@ -9,7 +10,7 @@ import { useEnquiry } from "@/context/EnquiryContext";
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/catalogue", label: "Collections" },
+  { href: "/#services", label: "Services" },
   { href: "/#applications", label: "Applications" },
   { href: "/#why-eco-shine", label: "Why Eco Shine" },
   { href: "/#projects", label: "Projects" },
@@ -50,9 +51,11 @@ export default function Nav() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3 gap-2">
         {/* Logo & Brand Name */}
         <Link href="/" className="group flex items-center gap-2.5 sm:gap-3 shrink-0 min-w-0">
-          <img
+          <Image
             src={getAssetUrl("/logo/eco_shine_logo.jpeg")}
             alt="Eco Shine Logo"
+            width={36}
+            height={36}
             className="h-8 w-8 sm:h-9 sm:w-9 rounded-full object-cover border border-line shrink-0"
           />
           <div className="flex flex-col min-w-0 leading-none">

@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Reveal from "@/components/Reveal";
 import HashScrollHandler from "@/components/HashScrollHandler";
 import BenefitsStrip from "@/components/BenefitsStrip";
+import HamberCollections from "@/components/HamberCollections";
 import ExploreCollections from "@/components/ExploreCollections";
 import SpaceApplications from "@/components/SpaceApplications";
 import WhyEcoShine from "@/components/WhyEcoShine";
@@ -57,7 +58,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. EXPLORE OUR COLLECTIONS */}
+      {/* 4. COLLECTION HAMBER (3 MAIN CATEGORIES) */}
+      <HamberCollections />
+
+      {/* 5. EXPLORE OUR DOOR COLLECTIONS */}
       <ExploreCollections />
 
       {/* 7. DOORS FOR EVERY SPACE (APPLICATIONS) */}
