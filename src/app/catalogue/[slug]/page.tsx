@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!c) return {};
   return {
     title: `${c.name} · Eco Shine Doors & Windows`,
-    description: `${c.name} from the Eco Shine New Edition 2026: ${c.doors.length} doors with product codes, size 7 × 3.25 ft.`,
+    description: `${c.name} collection from Eco Shine New Edition 2026: ${c.doors.length} doors with custom dimensions, 100% seasoned timber.`,
   };
 }
 
@@ -30,35 +30,94 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const next = categories[idx + 1];
   const heroImage = category.hero ?? category.doors[0]?.image;
 
+  // Other related collections
+  const relatedCollections = categories.filter((c) => c.slug !== slug).slice(0, 3);
+
   return (
     <>
       <CategoryHero image={heroImage} name={category.name} indexPage={category.indexPage} />
 
-      <section className="mx-auto max-w-7xl px-6 py-24">
-        <Reveal className="flex flex-wrap items-baseline justify-between gap-4 border-b border-line pb-6">
-          <p className="text-sm text-ink-soft">
-            {category.doors.length} doors · Size 7 × 3.25 ft
-            {category.tagline ? <span className="italic"> · {category.tagline}</span> : null}
-          </p>
-          <p className="text-[11px] uppercase tracking-[0.25em] text-ink-soft">
-            Edition 2026 · Page {category.indexPage}
+      {/* Breadcrumbs Bar */}
+      <div className="border-b border-line bg-cream/60 py-3.5 px-6">
+        <div className="mx-auto max-w-7xl flex items-center gap-2 text-xs text-ink-soft">
+          <Link href="/" className="hover:text-[#E65100] transition-colors">
+            Home
+          </Link>
+          <span>/</span>
+          <Link href="/catalogue" className="hover:text-[#E65100] transition-colors">
+            Catalogue
+          </Link>
+          <span>/</span>
+          <span className="text-[#0B2545] font-semibold">{category.name}</span>
+        </div>
+      </div>
+
+      <section className="mx-auto max-w-7xl px-6 py-20 md:py-24">
+        <Reveal className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 border-b border-line pb-6">
+          <div>
+            <span className="text-[10px] uppercase tracking-[0.25em] text-[#E65100] font-bold">Collection Overview</span>
+            <h2 className="mt-1 font-display text-3xl md:text-4xl text-ink">{category.name}</h2>
+          </div>
+          <p className="text-xs uppercase tracking-[0.2em] text-ink-soft">
+            {category.doors.length} Door Models · Edition 2026 Page {category.indexPage}
           </p>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-2 gap-x-6 gap-y-14 md:grid-cols-3 xl:grid-cols-4">
+        {/* Product Door Cards Grid */}
+        <div className="mt-14 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-8 sm:gap-y-12 md:grid-cols-3 xl:grid-cols-4">
           {category.doors.map((door, i) => (
             <DoorCard key={door.code} code={door.code} image={door.image} category={category.name} index={i} />
           ))}
         </div>
       </section>
 
+      {/* Related Collections Section */}
+      <section className="border-t border-line bg-cream/40 py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <Reveal className="flex items-center justify-between border-b border-line pb-6">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-[#E65100] font-bold">Discover More</p>
+              <h3 className="mt-1 font-display text-2xl md:text-3xl text-ink">Related Collections</h3>
+            </div>
+            <Link
+              href="/catalogue"
+              className="text-xs uppercase tracking-[0.2em] font-semibold text-[#0B2545] hover:text-[#E65100] transition-colors"
+            >
+              View All Collections
+            </Link>
+          </Reveal>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+            {relatedCollections.map((rc) => (
+              <Link
+                key={rc.slug}
+                href={`/catalogue/${rc.slug}`}
+                className="group bg-paper p-5 rounded-lg border border-line hover:border-gold hover:shadow-lg transition-all"
+              >
+                <span className="text-[10px] uppercase tracking-[0.2em] text-[#E65100] font-bold block mb-1">
+                  {rc.doors.length} Models
+                </span>
+                <h4 className="font-display text-xl text-ink group-hover:text-[#0B2545] transition-colors">{rc.name}</h4>
+                <div className="mt-3 flex items-center gap-1 text-[11px] uppercase tracking-[0.18em] text-[#0B2545] font-semibold group-hover:text-[#E65100]">
+                  <span>Explore Collection</span>
+                  <svg className="w-3.5 h-3.5 stroke-current fill-none transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Prev / Next Pagination */}
       <nav className="mx-auto grid max-w-7xl gap-px border-y border-line bg-line px-0 md:grid-cols-2">
         {prev ? (
           <Link
             href={`/catalogue/${prev.slug}`}
             className="group bg-paper px-6 py-10 transition-colors duration-300 hover:bg-cream"
           >
-            <span className="text-[11px] uppercase tracking-[0.3em] text-ink-soft">← Previous</span>
+            <span className="text-[11px] uppercase tracking-[0.3em] text-ink-soft">← Previous Collection</span>
             <span className="mt-2 block font-display text-2xl transition-transform duration-300 ease-out group-hover:-translate-x-1 md:text-3xl">
               {prev.name}
             </span>
@@ -71,15 +130,17 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             href={`/catalogue/${next.slug}`}
             className="group bg-paper px-6 py-10 text-right transition-colors duration-300 hover:bg-cream"
           >
-            <span className="text-[11px] uppercase tracking-[0.3em] text-ink-soft">Next →</span>
+            <span className="text-[11px] uppercase tracking-[0.3em] text-ink-soft">Next Collection →</span>
             <span className="mt-2 block font-display text-2xl transition-transform duration-300 ease-out group-hover:translate-x-1 md:text-3xl">
               {next.name}
             </span>
           </Link>
         ) : (
           <Link href="/catalogue" className="group bg-paper px-6 py-10 text-right transition-colors duration-300 hover:bg-cream">
-            <span className="text-[11px] uppercase tracking-[0.3em] text-ink-soft">Back to</span>
-            <span className="mt-2 block font-display text-2xl md:text-3xl">Full Index</span>
+            <span className="text-[11px] uppercase tracking-[0.3em] text-ink-soft">Index →</span>
+            <span className="mt-2 block font-display text-2xl transition-transform duration-300 ease-out group-hover:translate-x-1 md:text-3xl">
+              Full Catalogue Index
+            </span>
           </Link>
         )}
       </nav>

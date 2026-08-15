@@ -8,8 +8,12 @@ import { getAssetUrl } from "@/lib/assets";
 import { useEnquiry } from "@/context/EnquiryContext";
 
 const links = [
-  { href: "/catalogue", label: "Catalogue" },
-  { href: "/#about", label: "About" },
+  { href: "/", label: "Home" },
+  { href: "/catalogue", label: "Collections" },
+  { href: "/#applications", label: "Applications" },
+  { href: "/#why-eco-shine", label: "Why Eco Shine" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/about", label: "About Us" },
   { href: "/#contact", label: "Contact" },
 ];
 
@@ -65,16 +69,16 @@ export default function Nav() {
           </div>
         </Link>
 
-        {/* Desktop Links & Action */}
-        <div className="flex items-center gap-4 sm:gap-8">
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
+        {/* Desktop Links & Actions */}
+        <div className="flex items-center gap-3 sm:gap-6">
+          <div className="hidden lg:flex items-center gap-5 xl:gap-7">
             {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
                 onClick={(e) => handleNavClick(e, l.href)}
-                className={`text-xs uppercase tracking-[0.25em] transition-colors duration-200 hover:text-gold ${
-                  pathname === l.href ? "text-gold" : "text-ink"
+                className={`text-[11px] uppercase tracking-[0.2em] transition-colors duration-200 hover:text-[#E65100] font-medium ${
+                  pathname === l.href ? "text-[#E65100]" : "text-ink"
                 }`}
               >
                 {l.label}
@@ -82,13 +86,14 @@ export default function Nav() {
             ))}
           </div>
 
-          {/* Enquiry Cart Trigger Button */}
+          {/* Enquiry Counter Button */}
           <button
             onClick={() => setIsOpen(true)}
-            className="group flex items-center gap-1.5 text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-ink hover:text-gold transition-colors duration-200 cursor-pointer bg-cream/60 sm:bg-transparent px-2.5 sm:px-0 py-1.5 sm:py-0 rounded border sm:border-0 border-line"
+            className="group flex items-center gap-1.5 text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-ink hover:text-[#E65100] transition-colors duration-200 cursor-pointer bg-cream/80 px-2.5 py-1.5 rounded border border-line"
+            title="View Enquiry Cart"
           >
             <span>Enquiry</span>
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gold text-[9px] font-sans font-semibold text-paper group-hover:bg-ink group-hover:text-paper transition-colors duration-200">
+            <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-[#E65100] text-[9px] font-sans font-bold text-paper group-hover:bg-ink transition-colors duration-200">
               {items.length}
             </span>
           </button>
@@ -96,7 +101,7 @@ export default function Nav() {
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-1.5 text-ink hover:text-gold transition-colors cursor-pointer"
+            className="lg:hidden p-1.5 text-ink hover:text-[#E65100] transition-colors cursor-pointer"
             aria-label="Toggle Navigation Menu"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -118,15 +123,15 @@ export default function Nav() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="md:hidden border-t border-line bg-paper/95 backdrop-blur-md px-6 py-4 flex flex-col gap-4 shadow-lg overflow-hidden"
+            className="lg:hidden border-t border-line bg-paper/95 backdrop-blur-md px-6 py-5 flex flex-col gap-3 shadow-lg overflow-hidden"
           >
             {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
                 onClick={(e) => handleNavClick(e, l.href)}
-                className={`text-xs uppercase tracking-[0.25em] py-1 transition-colors ${
-                  pathname === l.href ? "text-gold font-medium" : "text-ink"
+                className={`text-xs uppercase tracking-[0.2em] py-1 transition-colors ${
+                  pathname === l.href ? "text-[#E65100] font-semibold" : "text-ink"
                 }`}
               >
                 {l.label}

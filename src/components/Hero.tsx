@@ -32,23 +32,29 @@ export default function Hero({ image }: { image: string }) {
         style={{ y: textY, opacity: textOpacity }}
         className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-24 pt-40 text-paper"
       >
+        <motion.p
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.2 }}
+          className="text-[11px] uppercase tracking-[0.4em] text-[#E65100] font-bold drop-shadow-sm"
+        >
+          Eco Shine · New Edition 2026
+        </motion.p>
         <motion.h1
           initial={reduce ? false : { opacity: 0, y: 36 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE_OUT, delay: 0.35 }}
-          className="font-display text-6xl leading-[0.95] tracking-tight md:text-8xl"
+          className="mt-3 font-display text-5xl leading-[1.02] tracking-tight md:text-7xl lg:text-8xl max-w-4xl"
         >
-          Shine on
-          <br />
-          the Doors
+          Doors Designed for Modern Living
         </motion.h1>
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.55 }}
-          className="mt-6 max-w-md text-sm leading-relaxed text-paper/85"
+          className="mt-6 max-w-xl text-base leading-relaxed text-paper/90"
         >
-          The Eco Shine catalogue, New Edition 2026. A door that speaks style, and lives strength.
+          Premium doors combining design, durability and everyday performance. Built from 100% seasoned timber.
         </motion.p>
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 20 }}
@@ -56,25 +62,22 @@ export default function Hero({ image }: { image: string }) {
           transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.7 }}
           className="mt-10 flex flex-wrap items-center gap-4 sm:gap-6"
         >
+          <a
+            href="#collections"
+            className="bg-[#E65100] px-8 py-4 text-xs uppercase tracking-[0.25em] text-paper transition-all duration-200 ease-out hover:bg-[#d44800] hover:-translate-y-0.5 active:scale-[0.98] font-semibold shadow-lg rounded"
+          >
+            Explore Doors
+          </a>
+
           <Link
             href="/catalogue"
-            className="bg-gold px-8 py-4 text-xs uppercase tracking-[0.3em] text-paper transition-transform duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.98] font-medium shadow-md"
+            className="flex items-center gap-2 border border-paper/40 bg-ink/30 backdrop-blur-sm px-8 py-4 text-xs uppercase tracking-[0.25em] text-paper transition-all duration-200 ease-out hover:border-paper hover:bg-paper/10 hover:-translate-y-0.5 active:scale-[0.98] font-medium rounded"
           >
-            Browse the catalogue
-          </Link>
-
-          <a
-            href={getAssetUrl("/Eco_Shine_Catalogue_2026.pdf")}
-            download="Eco_Shine_Catalogue_2026.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2.5 border border-paper/40 bg-ink/30 backdrop-blur-sm px-7 py-4 text-xs uppercase tracking-[0.25em] text-paper transition-all duration-200 ease-out hover:border-gold hover:bg-gold hover:text-paper hover:-translate-y-0.5 active:scale-[0.98] font-medium cursor-pointer"
-          >
-            <svg className="h-4 w-4 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            <span>View Catalogue</span>
+            <svg className="w-3.5 h-3.5 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
-            <span>Download Brochure (PDF)</span>
-          </a>
+          </Link>
         </motion.div>
       </motion.div>
     </section>
