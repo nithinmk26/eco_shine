@@ -74,7 +74,7 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
         onClick={handleOpenSpecsModal}
       >
         <div
-          className={`relative aspect-[3/4] overflow-hidden bg-cream transition-all duration-300 ${isAdded ? "ring-4 ring-gold ring-offset-2 ring-offset-paper" : ""
+          className={`relative aspect-[1/2] overflow-hidden bg-cream/70 transition-all duration-300 ${isAdded ? "ring-4 ring-gold ring-offset-2 ring-offset-paper" : ""
             }`}
         >
           <Image
@@ -82,10 +82,10 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
             alt={`${category} door, code ${code}`}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.04]"
+            className="object-contain p-2 transition-transform duration-300 ease-out"
           />
           {/* Hover overlay mask */}
-          <div className="absolute inset-0 bg-ink/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          <div className="absolute inset-0 bg-ink/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
           {/* Added Badge */}
           {isAdded && (
@@ -122,13 +122,13 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
             {/* Header: Image Thumbnail + Code + Quantity */}
             <div className="flex items-start justify-between gap-4 border-b border-line/60 pb-5">
               <div className="flex items-center gap-3.5">
-                <div className="relative h-16 w-12 flex-shrink-0 overflow-hidden bg-cream border border-line rounded">
+                <div className="relative h-20 w-10 flex-shrink-0 overflow-hidden bg-cream border border-line rounded p-0.5">
                   <Image
                     src={getAssetUrl(image)}
                     alt={code}
                     fill
-                    sizes="48px"
-                    className="object-cover"
+                    sizes="40px"
+                    className="object-contain"
                   />
                 </div>
                 <div>

@@ -91,22 +91,22 @@ export default function AboutPage() {
 
           <Reveal delay={0.15} className="md:col-span-7">
             <div className="grid grid-cols-2 gap-4">
-              <div className="relative aspect-[3/4] overflow-hidden rounded bg-cream border border-line">
+              <div className="relative aspect-[1/2] overflow-hidden rounded bg-cream/70 border border-line p-2">
                 <Image
                   src={getAssetUrl("/doors/luxur-veneer-door/lx-1.webp")}
                   alt="Luxury Veneer Door"
                   fill
                   sizes="350px"
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
-              <div className="relative aspect-[3/4] overflow-hidden rounded bg-cream border border-line mt-8">
+              <div className="relative aspect-[1/2] overflow-hidden rounded bg-cream/70 border border-line mt-8 p-2">
                 <Image
                   src={getAssetUrl("/doors/designer-laminated-doors/sld-01.webp")}
                   alt="Designer Laminated Door"
                   fill
                   sizes="350px"
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
             </div>

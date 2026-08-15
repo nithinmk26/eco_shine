@@ -17,13 +17,13 @@ function EnquiryItemCard({ item }: { item: EnquiryItem }) {
     <div className="flex flex-col border-b border-line/60 pb-4 pt-3 group">
       <div className="flex items-start gap-4">
         {/* Door Image Thumbnail */}
-        <div className="relative h-20 w-14 flex-shrink-0 overflow-hidden bg-cream border border-line rounded">
+        <div className="relative h-20 w-10 flex-shrink-0 overflow-hidden bg-cream border border-line rounded p-0.5">
           <Image
             src={getAssetUrl(item.image)}
             alt={item.code}
             fill
-            sizes="56px"
-            className="object-cover"
+            sizes="40px"
+            className="object-contain"
           />
         </div>
 

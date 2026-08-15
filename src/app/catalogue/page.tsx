@@ -32,14 +32,14 @@ export default function CatalogueIndex() {
               <span className="font-display text-3xl text-ink/25 transition-colors duration-300 group-hover:text-gold md:text-4xl">
                 {String(c.indexPage).padStart(2, "0")}
               </span>
-              <span className="relative hidden h-20 w-14 overflow-hidden bg-cream md:block">
+              <span className="relative hidden h-20 w-10 overflow-hidden bg-cream/70 md:block p-0.5 border border-line/50 rounded-sm">
                 {c.doors[0] && (
                   <Image
                     src={getAssetUrl(c.doors[0].image)}
                     alt=""
                     fill
-                    sizes="56px"
-                    className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-110"
+                    sizes="40px"
+                    className="object-contain transition-transform duration-300 ease-out"
                   />
                 )}
               </span>
