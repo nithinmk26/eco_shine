@@ -170,6 +170,7 @@ export default function EnquiryDrawer() {
   // User details form state
   const [isUserFormOpen, setIsUserFormOpen] = useState(false);
   const [userName, setUserName] = useState("");
+  const [userPhone, setUserPhone] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userLocation, setUserLocation] = useState("");
 
@@ -185,12 +186,13 @@ export default function EnquiryDrawer() {
 
   const handleSubmitDetails = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!userName.trim()) return;
+    if (!userName.trim() || !userPhone.trim()) return;
 
     const phoneNumber = "9187232751"; // Eco Shine WhatsApp Enquiry number
 
     // User details text
     let userDetailsText = `Name: ${userName.trim()}\n`;
+    userDetailsText += `Contact No: ${userPhone.trim()}\n`;
     if (userEmail.trim()) {
       userDetailsText += `Email: ${userEmail.trim()}\n`;
     }
@@ -353,6 +355,21 @@ export default function EnquiryDrawer() {
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                   placeholder="e.g. Rahul Sharma"
+                  required
+                  className="w-full border border-line bg-paper px-3.5 py-2.5 text-sm outline-none focus:border-gold rounded"
+                />
+              </div>
+
+              {/* Contact Number Input (Mandatory) */}
+              <div>
+                <label className="text-[10px] uppercase tracking-[0.2em] text-ink-soft block mb-1.5 font-medium">
+                  Contact Number <span className="text-oxblood">*</span>
+                </label>
+                <input
+                  type="tel"
+                  value={userPhone}
+                  onChange={(e) => setUserPhone(e.target.value)}
+                  placeholder="e.g. 9876543210"
                   required
                   className="w-full border border-line bg-paper px-3.5 py-2.5 text-sm outline-none focus:border-gold rounded"
                 />
