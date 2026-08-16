@@ -121,13 +121,14 @@ export default function Footer() {
 
       <div className="border-t border-paper/10 py-6 px-6 text-center text-[11px] uppercase tracking-[0.25em] text-paper/40 flex flex-col sm:flex-row items-center justify-between gap-3 max-w-7xl mx-auto">
         <p>© 2026 Eco Shine Doors &amp; Windows · Add Shine To Your Home</p>
-        <p>
-          Developed by{" "}
+        <p className="normal-case tracking-normal text-xs text-paper/70 flex items-center justify-center gap-1.5">
+          <span>Designed &amp; Developed by</span>
+          <span className="text-sm">🌿</span>
           <a
             href="https://malnadwebs.online/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#E65100] transition-colors hover:underline font-semibold"
+            className="text-[#E65100] transition-colors hover:underline font-bold"
           >
             Malnad Webs
           </a>
