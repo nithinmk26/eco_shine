@@ -53,7 +53,7 @@ export default function Nav() {
         <Link href="/" className="group flex items-center gap-2.5 sm:gap-3 shrink-0 min-w-0">
           <Image
             src={getAssetUrl("/logo/eco_shine_logo.jpeg")}
-            alt="Eco Shine Logo"
+            alt="Eco Shine Doors & Windows Logo"
             width={36}
             height={36}
             className="h-8 w-8 sm:h-9 sm:w-9 rounded-full object-cover border border-line shrink-0"

@@ -14,9 +14,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const c = getCategory(slug);
   if (!c) return {};
+  const heroImg = c.hero ?? c.doors[0]?.image ?? "/doors/luxur-veneer-door/hero.webp";
+  const fullImageUrl = heroImg.startsWith("http") ? heroImg : `https://ecoshinedoors.in${heroImg}`;
+
   return {
-    title: `${c.name} · Eco Shine Doors & Windows`,
-    description: `${c.name} collection from Eco Shine New Edition 2026: ${c.doors.length} doors with custom dimensions, 100% seasoned timber.`,
+    title: `${c.name} · Eco Shine Doors 2026 Collection`,
+    description: `${c.name} from Eco Shine: ${c.doors.length} door models with custom dimensions, 100% seasoned timber, and durable finishes.`,
+    alternates: {
+      canonical: `https://ecoshinedoors.in/catalogue/${slug}`,
+    },
+    openGraph: {
+      title: `${c.name} · Eco Shine Doors`,
+      description: `${c.doors.length} door models in ${c.name} collection from Eco Shine Doors & Windows.`,
+      url: `https://ecoshinedoors.in/catalogue/${slug}`,
+      images: [fullImageUrl],
+    },
   };
 }
 
@@ -33,8 +45,50 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   // Other related collections
   const relatedCollections = categories.filter((c) => c.slug !== slug).slice(0, 3);
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ecoshinedoors.in",
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Catalogue",
+        "item": "https://ecoshinedoors.in/catalogue",
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": category.name,
+        "item": `https://ecoshinedoors.in/catalogue/${slug}`,
+      },
+    ],
+  };
+
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": `${category.name} - Eco Shine Doors`,
+    "url": `https://ecoshinedoors.in/catalogue/${slug}`,
+    "description": `${category.name} collection from Eco Shine featuring ${category.doors.length} door models.`,
+    "numberOfItems": category.doors.length,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       <CategoryHero image={heroImage} name={category.name} indexPage={category.indexPage} />
 
       {/* Breadcrumbs Bar */}

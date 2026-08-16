@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import Reveal from "@/components/Reveal";
@@ -11,12 +12,40 @@ import ProjectGallery from "@/components/ProjectGallery";
 import { getAssetUrl } from "@/lib/assets";
 import { categories, totalDoors } from "@/data/catalogue";
 
+export const metadata: Metadata = {
+  title: "Eco Shine Doors & Windows · Luxury Veneer, WPC & Laminated Doors",
+  description:
+    "Explore Eco Shine New Edition 2026: 572+ premium door designs across 25 specialized collections. 100% seasoned wood, luxury veneer, WPC membrane, and laminated doors.",
+  alternates: {
+    canonical: "https://ecoshinedoors.in",
+  },
+  openGraph: {
+    title: "Eco Shine Doors & Windows · Luxury Veneer, WPC & Laminated Doors",
+    description:
+      "Explore Eco Shine New Edition 2026: 572+ premium door designs across 25 specialized collections.",
+    url: "https://ecoshinedoors.in",
+    images: ["https://ecoshinedoors.in/doors/luxur-veneer-door/hero.webp"],
+  },
+};
+
+const webSiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Eco Shine Doors & Windows",
+  "url": "https://ecoshinedoors.in",
+  "description": "572+ door designs across 25 collections including Luxury Veneer, WPC, and Laminated Doors.",
+};
+
 export default function Home() {
   const heroImage =
     categories.find((c) => c.slug === "luxur-veneer-door")?.hero ?? "/doors/luxur-veneer-door/hero.webp";
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+      />
       <HashScrollHandler />
       
       {/* 1. HERO SECTION */}

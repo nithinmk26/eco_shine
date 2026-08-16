@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { sendGAEvent } from "@/lib/gtag";
 
 export default function Footer() {
   return (
@@ -70,11 +73,23 @@ export default function Footer() {
             <div className="mt-2 flex flex-col gap-1 text-xs text-paper/80 leading-relaxed">
               <p>
                 <span className="font-medium text-paper">MD (Deepak):</span>{" "}
-                <a href="tel:9108840102" className="text-[#E65100] hover:underline">9108840102</a>
+                <a
+                  href="tel:9108840102"
+                  onClick={() => sendGAEvent("click_phone", { phone_label: "MD Contact", page_location: typeof window !== "undefined" ? window.location.pathname : "/" })}
+                  className="text-[#E65100] hover:underline"
+                >
+                  9108840102
+                </a>
               </p>
               <p>
                 <span className="font-medium text-paper">Office / WhatsApp Enquiry:</span>{" "}
-                <a href="tel:9187232751" className="text-[#E65100] hover:underline">9187232751</a>
+                <a
+                  href="tel:9187232751"
+                  onClick={() => sendGAEvent("click_phone", { phone_label: "Office Enquiry", page_location: typeof window !== "undefined" ? window.location.pathname : "/" })}
+                  className="text-[#E65100] hover:underline"
+                >
+                  9187232751
+                </a>
               </p>
             </div>
 

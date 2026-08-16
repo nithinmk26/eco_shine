@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { EASE_OUT } from "@/lib/motion";
 import { getAssetUrl } from "@/lib/assets";
+import { sendGAEvent } from "@/lib/gtag";
 
 export default function Hero({ image }: { image: string }) {
   const reduce = useReducedMotion();
@@ -64,6 +65,7 @@ export default function Hero({ image }: { image: string }) {
         >
           <a
             href="#collections"
+            onClick={() => sendGAEvent("view_collection", { collection_name: "Hero Explore Doors", page_location: "/" })}
             className="bg-[#E65100] px-8 py-4 text-xs uppercase tracking-[0.25em] text-paper transition-all duration-200 ease-out hover:bg-[#d44800] hover:-translate-y-0.5 active:scale-[0.98] font-semibold shadow-lg rounded"
           >
             Explore Doors
@@ -71,6 +73,7 @@ export default function Hero({ image }: { image: string }) {
 
           <Link
             href="/catalogue"
+            onClick={() => sendGAEvent("view_collection", { collection_name: "Hero Catalogue Index", page_location: "/" })}
             className="flex items-center gap-2 border border-paper/40 bg-ink/30 backdrop-blur-sm px-8 py-4 text-xs uppercase tracking-[0.25em] text-paper transition-all duration-200 ease-out hover:border-paper hover:bg-paper/10 hover:-translate-y-0.5 active:scale-[0.98] font-medium rounded"
           >
             <span>View Catalogue</span>

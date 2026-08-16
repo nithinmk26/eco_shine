@@ -6,14 +6,36 @@ import { getAssetUrl } from "@/lib/assets";
 import { categories, totalDoors } from "@/data/catalogue";
 
 export const metadata: Metadata = {
-  title: "Catalogue Index · Eco Shine Doors & Windows",
+  title: "Catalogue Index · Eco Shine Doors 2026 Collection (572+ Designs)",
   description:
-    "The Eco Shine New Edition 2026 index: 25 door collections from luxury veneer to WPC membrane, every door with its product code.",
+    "Browse the complete 2026 Eco Shine door index: 25 door collections from luxury veneer to WPC membrane, every door with its model code.",
+  alternates: {
+    canonical: "https://ecoshinedoors.in/catalogue",
+  },
+  openGraph: {
+    title: "Catalogue Index · Eco Shine Doors 2026 Collection",
+    description: "25 specialized door collections featuring 572+ designs with model codes.",
+    url: "https://ecoshinedoors.in/catalogue",
+    images: ["https://ecoshinedoors.in/doors/luxur-veneer-door/hero.webp"],
+  },
+};
+
+const catalogueJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Eco Shine Doors Catalogue Index 2026",
+  "url": "https://ecoshinedoors.in/catalogue",
+  "description": "Index of 25 specialized door collections containing 572+ door designs.",
+  "numberOfItems": categories.length,
 };
 
 export default function CatalogueIndex() {
   return (
     <div className="mx-auto max-w-7xl px-6 pb-28 pt-36">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(catalogueJsonLd) }}
+      />
       <Reveal>
         <p className="text-[11px] uppercase tracking-[0.4em] text-[#E65100] font-bold">Eco Shine · New Edition 2026</p>
         <h1 className="mt-4 font-display text-6xl tracking-tight md:text-8xl">Index</h1>
@@ -36,7 +58,7 @@ export default function CatalogueIndex() {
                 {c.doors[0] && (
                   <Image
                     src={getAssetUrl(c.doors[0].image)}
-                    alt=""
+                    alt={`Eco Shine ${c.name} preview`}
                     fill
                     sizes="40px"
                     className="object-contain transition-transform duration-300 ease-out"

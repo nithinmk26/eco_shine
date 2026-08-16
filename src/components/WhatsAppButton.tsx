@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { sendGAEvent } from "@/lib/gtag";
 
 const PRODUCTS = [
   { id: "flush-wood", label: "Flush Wood Laminated Doors" },
@@ -39,6 +40,12 @@ export default function WhatsAppButton() {
     } else {
       messageList = "• General Products Inquiry";
     }
+
+    sendGAEvent("click_whatsapp", {
+      button_label: "Floating WhatsApp Modal",
+      item_count: selectedProducts.length,
+      page_location: typeof window !== "undefined" ? window.location.pathname : "/",
+    });
 
     const whatsappMessage = `Hello Eco Shine, I would like to inquire about the following products:\n\n${messageList}\n\nPlease share details and catalogue information. Thanks!`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;

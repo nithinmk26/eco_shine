@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { getAssetUrl } from "@/lib/assets";
 import { validateDimensions } from "@/lib/validation";
+import { sendGAEvent } from "@/lib/gtag";
 
 function EnquiryItemCard({ item }: { item: EnquiryItem }) {
   const { updateItem, removeItemById } = useEnquiry();
@@ -181,12 +182,29 @@ export default function EnquiryDrawer() {
   const handleWhatsAppClick = () => {
     if (items.length === 0) return;
     if (hasInvalidItem) return;
+    sendGAEvent("contact_form_start", {
+      form_name: "Enquiry Drawer List Form",
+      page_location: typeof window !== "undefined" ? window.location.pathname : "/",
+    });
     setIsUserFormOpen(true);
   };
 
   const handleSubmitDetails = (e: React.FormEvent) => {
     e.preventDefault();
     if (!userName.trim() || !userPhone.trim()) return;
+
+    // Send non-PII conversion events to GA4
+    sendGAEvent("generate_lead", {
+      form_name: "Enquiry Drawer Lead Form",
+      item_count: items.length,
+      page_location: typeof window !== "undefined" ? window.location.pathname : "/",
+    });
+
+    sendGAEvent("click_whatsapp", {
+      button_label: "Enquiry Drawer WhatsApp Submit",
+      item_count: items.length,
+      page_location: typeof window !== "undefined" ? window.location.pathname : "/",
+    });
 
     const phoneNumber = "9187232751"; // Eco Shine WhatsApp Enquiry number
 

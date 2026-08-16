@@ -7,6 +7,7 @@ import { EASE_OUT, VIEWPORT } from "@/lib/motion";
 import { getAssetUrl } from "@/lib/assets";
 import { useEnquiry } from "@/context/EnquiryContext";
 import { validateDimensions } from "@/lib/validation";
+import { sendGAEvent } from "@/lib/gtag";
 
 type DoorCardProps = {
   code: string;
@@ -33,6 +34,7 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
   const handleOpenSpecsModal = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    sendGAEvent("view_product", { door_code: code, collection_name: category });
     setWidth("3.25");
     setLength("7.0");
     setThickness("30");
@@ -79,7 +81,7 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
         >
           <Image
             src={getAssetUrl(image)}
-            alt={`${category} door, code ${code}`}
+            alt={`Eco Shine ${category} Door - Model ${code}`}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             className="object-contain p-2 transition-transform duration-300 ease-out"
@@ -125,7 +127,7 @@ export default function DoorCard({ code, image, category, index }: DoorCardProps
                 <div className="relative h-20 w-10 flex-shrink-0 overflow-hidden bg-cream border border-line rounded p-0.5">
                   <Image
                     src={getAssetUrl(image)}
-                    alt={code}
+                    alt={`Eco Shine ${category} Door - Model ${code}`}
                     fill
                     sizes="40px"
                     className="object-contain"

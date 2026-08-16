@@ -6,9 +6,33 @@ import { getAssetUrl } from "@/lib/assets";
 import { categories, totalDoors } from "@/data/catalogue";
 
 export const metadata: Metadata = {
-  title: "About Us · Eco Shine Doors & Windows",
+  title: "About Us · Eco Shine Doors & Windows | Seasoned Wood Door Craftsmanship",
   description:
-    "Learn about Eco Shine Doors & Windows — 100% seasoned timber, custom lamination, luxury veneer, and eco-friendly door solutions.",
+    "Learn about Eco Shine Doors & Windows: 100% kiln-seasoned timber, custom lamination, anti-termite treatments, and 25 specialized door collections.",
+  alternates: {
+    canonical: "https://ecoshinedoors.in/about",
+  },
+  openGraph: {
+    title: "About Us · Eco Shine Doors & Windows",
+    description:
+      "Crafting premium doors and windows combining timeless style, structural integrity, and sustainable timber innovation.",
+    url: "https://ecoshinedoors.in/about",
+    images: ["https://ecoshinedoors.in/doors/luxur-veneer-door/hero.webp"],
+  },
+};
+
+const aboutJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About Eco Shine Doors & Windows",
+  "url": "https://ecoshinedoors.in/about",
+  "description":
+    "Eco Shine Doors & Windows manufactures 100% seasoned timber, luxury veneer, WPC, and laminated door collections.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Eco Shine Doors & Windows",
+    "url": "https://ecoshinedoors.in",
+  },
 };
 
 const coreValues = [
@@ -44,6 +68,10 @@ export default function AboutPage() {
 
   return (
     <div className="bg-paper text-ink min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
+      />
       {/* Hero Header */}
       <section className="relative flex min-h-[60vh] items-end overflow-hidden bg-ink pt-32 pb-20 text-paper">
         <div className="absolute inset-0 z-0 opacity-40">

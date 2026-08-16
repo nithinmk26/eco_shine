@@ -23,7 +23,7 @@ export default function CategoryHero({ image, name, indexPage }: CategoryHeroPro
         <motion.div style={{ y: imgY }} className="absolute inset-0">
           <Image
             src={getAssetUrl(image)}
-            alt={`${name}, lifestyle view`}
+            alt={`Eco Shine ${name} Collection Hero`}
             fill
             priority
             sizes="100vw"
