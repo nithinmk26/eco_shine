@@ -119,8 +119,19 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-paper/10 py-6 text-center text-[11px] uppercase tracking-[0.25em] text-paper/40">
-        © 2026 Eco Shine Doors &amp; Windows · Add Shine To Your Home
+      <div className="border-t border-paper/10 py-6 px-6 text-center text-[11px] uppercase tracking-[0.25em] text-paper/40 flex flex-col sm:flex-row items-center justify-between gap-3 max-w-7xl mx-auto">
+        <p>© 2026 Eco Shine Doors &amp; Windows · Add Shine To Your Home</p>
+        <p>
+          Developed by{" "}
+          <a
+            href="https://malnadwebs.online/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#E65100] transition-colors hover:underline font-semibold"
+          >
+            Malnad Webs
+          </a>
+        </p>
       </div>
     </footer>
   );
